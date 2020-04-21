@@ -1,0 +1,26 @@
+Conventions d'un fichier au format FUTO
+
+sans les espaces un fichier au format FUTO est de la forme :
+
+chiffre1 relation chiffre2 relation ... chiffreN-1 relation chiffreN 
+relation  barre	  relation  barre   ... relation    barre   relation
+chiffre1 relation chiffre2 relation ... chiffreN-1 relation chiffreN 
+relation  barre	  relation  barre   ... relation    barre   relation
+...
+chiffre1 relation chiffre2 relation ... chiffreN-1 relation chiffreN 
+relation  barre	  relation  barre   ... relation    barre   relation
+chiffre1 relation chiffre2 relation ... chiffreN-1 relation chiffreN 
+
+avec 
+	- relation dans {<,>,|}
+	- chiffreX dans {1..N}, chiffreX=0 indique que la case est vide
+	- barre = |
+
+exemple en taille 3x3 :
+
+1<2|0		[0,0] contient le chiffre 1, [0,1] contient le chiffre 2, [0,0] est inferieure a [0,1], [0,2] est vide
+|||||		aucune relation en colonne entre les cases
+0<0|0		[1,0] vide, [1,1] vide, [1,2] vide, [1,0] inferieure a [1,1]
+<|>|<		[1,0] superieure a [2,0], [1,1] inferieure a [2,1], [1,2] superieure a [2,2]
+0|3|0		[2,1] contient 3 
+

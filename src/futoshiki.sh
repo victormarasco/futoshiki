@@ -25,3 +25,5 @@ echo
 # on afficher le fichier du futoshiki fourni RESOLU
 java Affichage $1_rempli
 rm *.out
+rm $1_rempli
+

@@ -3,38 +3,6 @@ import java.util.*;
 
 public class InterpretationReponse {
 
-	/* retourne la taille du futoshiki :
-	   compte le nombre de caractère d'une ligne et renvoi le (nombre de char+1)/2
-	   en effet par exemple la lign 1<2<3 prouve que c'est un futoshiki 3x3 !
-	*/
-	public static int tailleFuto(String s) {
-		int i=0;
-		while(s.charAt(i)!='\n') {
-			i++;
-		}
-		return (i+1)/2;
-	}
-
-	/* range le contenu d'un fichier dans un string en recopiant les sauts de ligne */
-	public static String contenuFichier(String s) {
-		String cont="";
-		String ligne;
-		try{
-			Reader r = new FileReader(s);
-			BufferedReader br = new BufferedReader(r);
-			while ( (ligne = br.readLine()) != null) {
-	    		
-				cont+=ligne+"\n";
-	    		}
-			r.close();
-		}
-		catch(Exception e) {
-			System.out.println(e);
-		}
-		return cont;
-		
-	
-    	}
 
 	/* interprete la reponse dimacs d'un sat solveur et stocke les valeurs positives dans une tableau 
 	   attention : on stocke directement la valeur de la case et non la valeur de sa variable 
@@ -75,57 +43,59 @@ public class InterpretationReponse {
 			
 
 	
-	/* a completer avec le groupe 
+	/* main : lis la reponse du sat solveur et le fichier du futoshiki donné
+		renvoi le futoshiki rempli si SAT, le futoshiki rempli avec des 0 sinon
 	*/
 	public static void main(String args[]) {
 		String futoRempli="";
 		String reponseSat=args[0];
 		String futoVide=args[1];
-		String futoVids=contenuFichier(args[1]);
-		int n_lig;
-		int n_col;
-		
-		int taille=tailleFuto(futoVids);
-		int ptrFutoVide;
-		int vals [] = new int [taille*taille];
-		int num_val=0;
-		boolean sat=true;
+		int taille;
+		int vals [];
+		int ptrVal=0;
 
 		try {
+			
+			Reader r = new FileReader(futoVide);
+			BufferedReader br = new BufferedReader(r);
+			String lig=br.readLine();
+			taille =((lig.length()+1)/2);
+			vals= new int[taille*taille];
+			// lecture du fichier reponse 
 			Reader r1 = new FileReader(reponseSat);
 			BufferedReader br1 = new BufferedReader(r1);
-			String lig=br1.readLine();
-			if(lig.charAt(0)=='U') {
-				sat=false;
-			}	
-			else {
-				lig=br1.readLine();
-				vals=valeurs(lig,taille);
+			String lig1=br1.readLine();
+			// si SAT, remplissage du tableau de valeurs
+			if(lig1.charAt(0)!='U') {
+				lig1=br1.readLine();
+				vals=valeurs(lig1,taille);
 			}
 			r1.close();
-			Reader r2 = new FileReader(futoVide);
-			BufferedReader br2 = new BufferedReader(r2);
-			lig=br2.readLine();
+			// remplissage futoshiki rempli avec les valeurs de vals
+			// si futoshiki n'a pas de solutions, on remplit avec des 0
 			while(lig!=null) {
+				// traitement ligne avec des cases
 				int k=0;
 				while(k!=lig.length()) {
-					futoRempli+=vals[num_val]+"";	
-					num_val++;
+					futoRempli+=vals[ptrVal];	
+					ptrVal++;
 					k++;
 					if(k!=lig.length()) {
-						futoRempli+=lig.charAt(k)+"";
+						futoRempli+=lig.charAt(k);
 						k++;
 					}
 				}
+				// saut de ligne, passage a la ligne suivante
 				futoRempli+="\n";
-				lig=br2.readLine();
+				lig=br.readLine();
+				// ajouter la ligne impaire de relations entre les cases en colonne
 				if(lig!=null) {
 					futoRempli+=lig+"\n";
-					lig=br2.readLine();
+					lig=br.readLine();
 				}
 	
 			}
-			r2.close();
+			r.close();
 			System.out.print(futoRempli);
 			}
 		catch(Exception e) {
@@ -133,4 +103,3 @@ public class InterpretationReponse {
 		}
 	}
 }
-				

@@ -20,10 +20,12 @@ echo
 # affichage : on affiche le fichier du futoshiki fourni non resolu
 java Affichage $1
 # on affiche une barre et un saut de ligne
+echo
 echo '==================================================================='
 echo
 # on afficher le fichier du futoshiki fourni RESOLU
 java Affichage $1_rempli
+echo
 rm *.out
 rm $1_rempli
 

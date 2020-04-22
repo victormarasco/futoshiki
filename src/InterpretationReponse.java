@@ -2,6 +2,11 @@ import java.io.*;
 import java.util.*; 
 
 public class InterpretationReponse {
+
+	/* retourne la taille du futoshiki :
+	   compte le nombre de caractère d'une ligne et renvoi le (nombre de char+1)/2
+	   en effet par exemple la lign 1<2<3 prouve que c'est un futoshiki 3x3 !
+	*/
 	public static int tailleFuto(String s) {
 		int i=0;
 		while(s.charAt(i)!='\n') {
@@ -9,6 +14,8 @@ public class InterpretationReponse {
 		}
 		return (i+1)/2;
 	}
+
+	/* range le contenu d'un fichier dans un string en recopiant les sauts de ligne */
 	public static String contenuFichier(String s) {
 		String cont="";
 		String ligne;
@@ -29,6 +36,9 @@ public class InterpretationReponse {
 	
     	}
 
+	/* interprete la reponse dimacs d'un sat solveur et stocke les valeurs positives dans une tableau 
+	   attention : on stocke directement la valeur de la case et non la valeur de sa variable 
+	*/
 	public static int [] valeurs (String futo, int taille) {
 		int [] val = new int [taille*taille];
 		int i=0;
@@ -65,7 +75,8 @@ public class InterpretationReponse {
 			
 
 	
-
+	/* a completer avec le groupe 
+	*/
 	public static void main(String args[]) {
 		String futoRempli="";
 		String reponseSat=args[0];
@@ -115,7 +126,7 @@ public class InterpretationReponse {
 	
 			}
 			r2.close();
-			System.out.println(futoRempli);
+			System.out.print(futoRempli);
 			}
 		catch(Exception e) {
 			System.out.println(e);

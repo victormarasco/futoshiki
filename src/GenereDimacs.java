@@ -167,9 +167,9 @@ public class GenereDimacs {
 
 	/* lecture d'un fichier au format FUTO et impression des regles associees au format DIMACS */ 
 	public static void main(String args[]) {
-		int n_col;
-		int n_lig;
-		int taille;
+		int n_col;	// numero de colonne .. a tout moment il vaut n_col/2 !
+		int n_lig;	// numero de ligne
+		int taille;	// taille du jeu de futoshiki
 		int nb_clauses;
 		int nb_vars;
 		String clauses="";
@@ -184,6 +184,7 @@ public class GenereDimacs {
 			n_lig=0;
 			while (ligne!=null) { 								
 				n_col=0;
+				// parcours d'une ligne paire (contenant des cases et des relations)
 				while(n_col!=ligne.length()) {
 					if(ligne.charAt(n_col)-48!=0) {
 						clauses+=clauseCaseRemplie(n_lig,n_col/2,ligne.charAt(n_col)-48,taille);
@@ -199,6 +200,7 @@ public class GenereDimacs {
 						n_col++;
 					}
 				}
+				// parcours d'une ligne impaire (ne contenant que des relations)
 				ligne=br.readLine();
 				if(ligne!=null) {
 					n_col=0;
@@ -214,18 +216,15 @@ public class GenereDimacs {
 							n_col++;
 						}
 					}
+					ligne=br.readLine();
 				}
-				ligne=br.readLine();
 				n_lig++;			
-
-			
-				futo+=(ligne)+"\n"; 
 			}	
 			r.close();
 			clauses+=clausesCarreLatin(taille);
 			nb_clauses=nombreDeClauses(clauses);
 			nb_vars=taille*taille*taille;
-			System.out.println("p cnf "+nb_vars+" "+nb_clauses+"\n"+clauses);
+			System.out.print("p cnf "+nb_vars+" "+nb_clauses+"\n"+clauses);
 		}
 		catch(Exception e) {
 			System.out.println(e);

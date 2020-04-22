@@ -1,6 +1,9 @@
 import java.io.*;
 import java.util.*; 
 
+/* classe utilisée pour l'affichage des fichiers au format FUTO
+*/
+
 public class Affichage {
 
 	// afficher | 1 | > | 3 | < ... au lieu de 1>3<...
@@ -33,22 +36,27 @@ public class Affichage {
 		return s;
 	}
 
+
+	// affichage d'une interligne ou on peut avoir des relation entre les cases ou rien 
 	public static String afficherLigneRelations(String ligne) {
 		String s="";
                 int i=0;
                 while(i!=ligne.length()) {
+			// si pas de relation, afficher 5 espaces
                         if(ligne.charAt(i)=='|') {
                                 s+="     ";
                         }
+			// sinon afficher 2 espaces + la relation + 2 espaces
                         else {
 				if(ligne.charAt(i)=='>') {
-                                	s+="  "+'\u2228'+"  ";
+                                	s+="  "+'\u2228'+"  ";   // caractère ou logique
 				}
 				if(ligne.charAt(i)=='<') {
-					s+="  "+'\u2227'+"  ";
+					s+="  "+'\u2227'+"  ";   // caractère et logique
 				}
 			}
 			i++;
+			// si on n'est pas a la fin de la ligne, afficher 3 espaces (voir plus haut)
 			if(i!=ligne.length()) {
 				s+="   ";
 				i++;
@@ -57,7 +65,8 @@ public class Affichage {
 		return s;
 	}
 
-	public static String afficherNfoisBlocTirets(int n) {
+	// affichage d'un bloc de "+" et de "-" puis d'un bloc d'espace : le haut et le bas d'une case
+ 	public static String afficherNfoisBlocTirets(int n) {
 		String s="";
 		int i=0;
 		while(i!=n) {
@@ -67,25 +76,19 @@ public class Affichage {
 		return s;
 	}
 
-	public static String afficherNfoisBlocEspaces(int n) {
-		String s="";
-		int i=0;
-		while(i!=n) {
-			s+="    "+"    ";
-			i++;
-		}
-		return s;
-	}
-
-
 	public static void main(String args[]) {
 		String affichage="";
 		int n;
 		try {
-			Reader r = new FileReader(args[0]);
+			// args[0] est un fichier au format FUTO
+			String f = args[0];
+			Reader r = new FileReader(f);
 			BufferedReader br = new BufferedReader(r);
 			String lig=br.readLine();		
-			if(args[0].charAt(args[0].length()-1)=='i' && lig.charAt(0)=='0') {
+			/* si le fichier fini par 'li' ie : _rempli et que le contenu commence par 0
+			   alors le futoshiki n'a pas de solutions, il a été rempli avec des zéros
+			*/ 
+			if(f.charAt(f.length()-2)=='l' && f.charAt(f.length()-1)=='i' && lig.charAt(0)=='0') {
 				System.out.println("Ce Futoshiki n'a pas de solutions");
 			}
 			else { 	
@@ -96,14 +99,12 @@ public class Affichage {
                                 affichage+=afficherNfoisBlocTirets(n)+'\n';
 				lig=br.readLine();
 				if(lig!=null) {
-					//affichage+=afficherNfoisBlocEspaces(n)+'\n';
 					affichage+=afficherLigneRelations(lig)+'\n';
-					//affichage+=afficherNfoisBlocEspaces(n)+'\n';
 					lig=br.readLine();
 				}
 			}
 			}
-			System.out.println(affichage);
+			System.out.print(affichage);
 			}
 		catch(Exception e) {
 			System.out.println(e);

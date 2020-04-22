@@ -10,7 +10,7 @@ minisat futo.out sol.out > ne_pas_afficher.out
 # au format FUTO du futoshiki resolu (ou non) dans le fichier $1_rempli
 # ie: on ajoute le mot cle "_rempli" au nom de fichier contenant le futoshiki
 # pas encore rempli
-java InterpretationReponse2 sol.out $1 > $1_rempli
+java InterpretationReponse sol.out $1 > $1_rempli
 # affichage : une entete pour faire joli
 echo "        ----------------------"
 echo '       |   FUTOSHIKI SOLVER   |'

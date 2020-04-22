@@ -13,7 +13,7 @@ placez le bien dans le repertoire tests.
 
 
 **EXEMPLE**
-
+```shell
 ./futoshiki ../tests/futo2x2  
 
 
@@ -41,3 +41,4 @@ placez le bien dans le repertoire tests.
 +---+   +---+   
 
 
+```

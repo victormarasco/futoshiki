@@ -76,6 +76,7 @@ public class Affichage {
 		return s;
 	}
 
+
 	public static void main(String args[]) {
 		String affichage="";
 		int n;

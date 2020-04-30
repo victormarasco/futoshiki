@@ -1,7 +1,7 @@
 ### futoshiki ###
 # $1 est le fichier au format FUTO contenant le futoshiki a resoudre
 # on stocke le fichier de CNF au format DIMACS dans futo.out
-java GenereDimacs $1 > futo.out
+java GenereFormule $1 > futo.out
 # on donne a minisat le fichier futo.out qui donne sa reponse
 # dans sol.out et stocke ce qu'affiche minisat dans la console dans
 # le fichier ne_pas_afficher.out ........
@@ -30,4 +30,3 @@ echo
 # on veut des détails
 rm *.out
 rm $1_rempli
-

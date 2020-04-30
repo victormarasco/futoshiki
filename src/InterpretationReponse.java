@@ -4,7 +4,7 @@ import java.util.*;
 public class InterpretationReponse {
 
 
-	/* interprete la reponse dimacs d'un sat solveur et stocke les valeurs positives dans une tableau 
+	/* interprete la reponse dimacs d'un sat solveur et stocke les valeurs positives dans un tableau 
 	   attention : on stocke directement la valeur de la case et non la valeur de sa variable 
 	*/
 	public static int [] valeurs (String futo, int taille) {
@@ -47,8 +47,11 @@ public class InterpretationReponse {
 		renvoi le futoshiki rempli si SAT, le futoshiki rempli avec des 0 sinon
 	*/
 	public static void main(String args[]) {
+		// chaine de caractère au format FUTO
 		String futoRempli="";
+		// fichier contenant la reponse du solveur SAT
 		String reponseSat=args[0];
+		// fichier au format FUTO contenant le puzzle initial non rempli
 		String futoVide=args[1];
 		int taille;
 		int vals [];

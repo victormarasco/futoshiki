@@ -12,9 +12,9 @@ minisat futo.out sol.out > ne_pas_afficher.out
 # pas encore rempli
 java InterpretationReponse sol.out $1 > $1_rempli
 # affichage : une entete pour faire joli
-echo "        ----------------------"
+echo "       +----------------------+"
 echo '       |   FUTOSHIKI SOLVER   |'
-echo '        ----------------------'
+echo '       +----------------------+'
 echo
 echo
 # affichage : on affiche le fichier du futoshiki fourni non resolu

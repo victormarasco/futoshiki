@@ -96,7 +96,6 @@ public class InterpretationReponse {
 					futoRempli+=lig+"\n";
 					lig=br.readLine();
 				}
-	
 			}
 			r.close();
 			System.out.print(futoRempli);

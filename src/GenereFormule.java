@@ -2,14 +2,14 @@ import java.io.*;
 import java.util.*; 
 public class GenereFormule {
 
-	int NB_CLAUSES;
-	int NB_VARS;
-	String formule;
+	int NB_CLAUSES;	// nombre de clauses
+	int NB_VARS;	// nombre de variables
+	String formule;	// CNF au format DIMACS
 
-	public GenereFormule(String nomFic) {
-		int n_col;	// numero de colonne .. a tout moment il vaut n_col/2 !
-		int n_lig;	// numero de ligne courante
+	GenereFormule(String nomFic) {
 		String lig;	// ligne courante
+		int n_lig;	// numero de ligne courante
+		int n_col;	// pour parcourir de la ligne courante
 		this.NB_CLAUSES=0;
 		this.formule="";
 		try{
@@ -63,12 +63,13 @@ public class GenereFormule {
 	}		
 
 	/* renvoi le numero de la variable x(n_lig,n_col,val) */
-	public int numVar(int n_lig, int n_col, int val) {
-		return 	n_lig*(int)(Math.cbrt(this.NB_VARS))*(int)(Math.cbrt(this.NB_VARS))+n_col*(int)(Math.cbrt(this.NB_VARS))+val;
+	int numVar(int n_lig, int n_col, int val) {
+	return 	n_lig*(int)(Math.cbrt(this.NB_VARS))*(int)(Math.cbrt(this.NB_VARS))+n_col*(int)(Math.cbrt(this.NB_VARS))+val;
 	}
 
+
 	/* ajoute les regles du carre latin */
-	public void carreLatin() {
+	void carreLatin() {
 		int i=0,j,k,l;	// i=n_lig ; j=n_col ; k=val_case ; l = variable utilisee pour i!=l et j!=l
 		String existe;
 		int n=(int)(Math.cbrt(this.NB_VARS));
@@ -106,13 +107,13 @@ public class GenereFormule {
 	}
 
 	/* ajoute une clause si une case est preremplie avec un chiffre */
-	public void caseRemplie(int n_lig, int n_col, int val) {
+	void caseRemplie(int n_lig, int n_col, int val) {
 		this.formule+=numVar(n_lig,n_col,val)+" 0\n";
 		this.NB_CLAUSES++;
 	}
 
 	/* ajoute les clauses associees a une case inferieure a la suivante en ligne */
-	public void infLig(int n_lig, int n_col) {
+	void infLig(int n_lig, int n_col) {
 		int val=1;
 		while(val!=Math.cbrt(NB_VARS)+1) {
 			int val_suivante=1;
@@ -126,7 +127,7 @@ public class GenereFormule {
 	}
 
 	/* ajoute les clauses associees a une case superieure a la suivante en ligne*/
-        public void supLig(int n_lig, int n_col) {
+        void supLig(int n_lig, int n_col) {
                 int val=1;
                 while(val!=(int)(Math.cbrt(this.NB_VARS))+1) {
                         int val_suivante=(int)(Math.cbrt(this.NB_VARS));
@@ -140,7 +141,7 @@ public class GenereFormule {
         }
 
 	/* ajoute les clauses associees a une case inferieure a la suivante en colonne */
-        public void infCol(int n_lig, int n_col) {
+        void infCol(int n_lig, int n_col) {
 		int val=1;
 		while(val!=(int)(Math.cbrt(this.NB_VARS))+1) {
 			int val_suivante=1;
@@ -154,7 +155,7 @@ public class GenereFormule {
         }
 
 	/* ajoute les clauses associees a une case superieure a la suivante en colonne */
-        public void supCol(int n_lig, int n_col) {
+        void supCol(int n_lig, int n_col) {
                 int val=1;
                 while(val!=(int)(Math.cbrt(this.NB_VARS))+1) {
                         int val_suivante=(int)(Math.cbrt(this.NB_VARS));
@@ -167,8 +168,7 @@ public class GenereFormule {
                 }
         }
 
-
-
+	/* prend en entree un nom de fichier au format FUTO et imprime les règles */
 	public static void main(String args[]) {
 		GenereFormule gf = new GenereFormule(args[0]);
 		System.out.print("p cnf "+gf.NB_VARS+" "+gf.NB_CLAUSES+"\n"+gf.formule);

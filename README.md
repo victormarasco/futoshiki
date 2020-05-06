@@ -1,7 +1,7 @@
 **Utilisation :**
 
 se placer dans src
-compiler les sources java
+compiler les sources java : javac *.java
 puis taper la commande suivante
 
 ./futoshiki ../tests/fichier_tests.FUTO

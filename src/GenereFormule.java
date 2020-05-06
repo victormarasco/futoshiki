@@ -15,16 +15,19 @@ public class GenereFormule {
 		try{
 			BufferedReader br = new BufferedReader(new FileReader(nomFic));
 			lig=br.readLine();
+			// le nombre de variables !
 			this.NB_VARS=(lig.length()+1)/2*(lig.length()+1)/2*(lig.length()+1)/2;
 			n_lig=0;
 			while (lig!=null) { 							
 				n_col=0;
 				// parcours d'une ligne paire (contenant des cases et des relations)
 				while(n_col!=lig.length()) {
+					// si chiffre alors ajouter regle, sinon passer au caractère suivant
 					if(lig.charAt(n_col)-48!=0) {
 						caseRemplie(n_lig,n_col/2,lig.charAt(n_col)-48);
 					}
 					n_col++;
+					// si < ou > alors ajouter regle, sinon passer au caractere suivant
 					if(n_col!=lig.length()) {
 						if(lig.charAt(n_col)=='>') {
 							supLig(n_lig,(n_col-1)/2);
@@ -40,6 +43,7 @@ public class GenereFormule {
 				if(lig!=null) {
 					n_col=0;
 					while(n_col!=lig.length()) {
+						// si < ou > alors ajouter regle, sinon passer au caractère suivant
 						if(lig.charAt(n_col)=='>') {
 							supCol(n_lig,n_col/2);
 						}
@@ -47,6 +51,7 @@ public class GenereFormule {
 							infCol(n_lig,n_col/2);
 						}			
 						n_col++;
+						// si non fin de ligne : avancer , on est sur une barre | !
 						if(n_col!=lig.length()) {
 							n_col++;
 						}
@@ -54,7 +59,8 @@ public class GenereFormule {
 					lig=br.readLine();
 				}
 				n_lig++;			
-			}			
+			}
+			// ajouter regle du carré latin à la formule 
 			carreLatin();
 		}
 		catch(Exception e) {

@@ -4,7 +4,7 @@ se placer dans src
 compiler les sources java : javac *.java
 puis taper la commande suivante
 
-./futoshiki ../tests/fichier_tests.FUTO
+./futoshiki.sh ../tests/fichier_tests.FUTO
 
 Remplacer fichier_tests.FUTO par un fichier au format FUTO
 

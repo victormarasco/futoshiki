@@ -63,6 +63,7 @@ public class InterpretationReponse {
 			BufferedReader br = new BufferedReader(r);
 			String lig=br.readLine();
 			taille =((lig.length()+1)/2);
+			// il y a bien N**2 valeurs à recupérer
 			vals= new int[taille*taille];
 			// lecture du fichier reponse 
 			Reader r1 = new FileReader(reponseSat);
@@ -91,7 +92,7 @@ public class InterpretationReponse {
 				// saut de ligne, passage a la ligne suivante
 				futoRempli+="\n";
 				lig=br.readLine();
-				// ajouter la ligne impaire de relations entre les cases en colonne
+				// recopier la ligne impaire de relations entre les cases en colonne
 				if(lig!=null) {
 					futoRempli+=lig+"\n";
 					lig=br.readLine();
